@@ -107,15 +107,23 @@ rm -rf build dist
 
 ## Installing the Plugin
 
-The plugin can be installed into a Deephaven instance with `pip install <wheel file>`.
-The wheel file is stored in the `dist` directory after building the plugin.
-Exactly how this is done will depend on how you are running Deephaven.
-If using the venv created above, the plugin and server can be created with the following commands:
+### From PyPI
+
+The released plugin is published on [PyPI](https://pypi.org/project/deephaven-plugin-pyinstrument/).
+Install it into your Deephaven environment with:
 ```sh
 pip install deephaven-server
-pip install dist/deephaven_plugin_pyinstrument-0.0.1-py3-none-any.whl
+pip install deephaven-plugin-pyinstrument
 deephaven server
 ```
+
+### From a local build
+
+To install a version you built yourself, install the wheel from the `dist` directory:
+```sh
+pip install dist/deephaven_plugin_pyinstrument-0.0.1-py3-none-any.whl
+```
+Exactly how this is done depends on how you are running Deephaven.
 See the [plug-in documentation](https://deephaven.io/core/docs/how-to-guides/install-use-plugins/) for more information.
 
 ## Using the Plugin
