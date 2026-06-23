@@ -8,7 +8,7 @@
     "pyinstrument",
     "profiling"
   ],
-  "author": "Anonymous",
+  "author": "Germain Zhang-Houle",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "scripts": {

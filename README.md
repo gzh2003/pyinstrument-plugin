@@ -121,7 +121,7 @@ deephaven server
 
 To install a version you built yourself, install the wheel from the `dist` directory:
 ```sh
-pip install dist/deephaven_plugin_pyinstrument-0.0.1-py3-none-any.whl
+pip install dist/deephaven_plugin_pyinstrument-0.0.2-py3-none-any.whl
 ```
 Exactly how this is done depends on how you are running Deephaven.
 See the [plug-in documentation](https://deephaven.io/core/docs/how-to-guides/install-use-plugins/) for more information.
