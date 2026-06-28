@@ -2,6 +2,8 @@
 
 This is a plugin for Deephaven that displays [pyinstrument](https://github.com/joerick/pyinstrument) profiling reports.
 
+![Pyinstrument Report](./_assets/demo_report_screenshot.png "Pyinstrument Report")
+
 ## Plugin Structure
 
 The `src` directory contains the Python and JavaScript code for the plugin.
@@ -164,6 +166,16 @@ with PyinstrumentReport.profile_context() as ctx:
 report = ctx.report
 ```
 
+## Limitations
+
+pyinstrument is a sampling profiler that only watches the thread that started it, and it only understands Python. Also, Deephaven runs its query engine in Java and spreads work across other threads, so a few caveats apply:
+
+- It shows time spent in your Python code and at each Deephaven call, but not inside the engine itself.
+- Python functions (UDFs) used inside table formulas are not captured by default, because Deephaven runs them on background threads. To include them, start the server so formulas run on the calling thread:
+  ```sh
+  deephaven server --jvm-args "-DOperationInitializationThreadPool.threads=1"
+  ```
+- Ticking tables keep updating as new data arrives, and that work runs on a background thread the profiler cannot see.
 
 ## Debugging the Plugin
 It's recommended to run through all the steps in [Using plugin_builder.py](#Using-plugin_builder.py) and [Using the Plugin](#Using-the-plugin) to ensure the plugin is working correctly.
@@ -177,10 +189,13 @@ Below are some common issues and how to resolve them as you develop your plugin.
 If the panel is not appearing or an error is thrown that the import is not found, the plugin may not be registered correctly.
 To verify the plugin is registered, check either the console logs or the versions in the settings panel.
 - In the console logs, there should be a messaging saying `Plugins loaded:` with a map that includes this plugin.
-![plugin map](./_assets/plugin_map.png "Plugin Map")
+
+  ![plugin map](./_assets/plugin_map.png "Plugin Map")
 
 - To get to the settings panel, click on the gear icon in the top right corner of the Deephaven window. Towards the bottom this plugin should be listed.
-![plugin settings](./_assets/plugin_settings.png "Plugin Settings")
+
+  ![plugin settings](./_assets/plugin_settings.png "Plugin Settings")
+
 - If the plugin is not listed, attempt to rebuild and reinstall the plugin and check for errors during that process.
 
 #### Checking if the Python Package is Installed
